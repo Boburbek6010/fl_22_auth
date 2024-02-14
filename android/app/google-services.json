@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "828562772715",
+    "project_id": "fl-22-auth-f881d",
+    "storage_bucket": "fl-22-auth-f881d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:828562772715:android:6b3771f76d3501280e24ae",
+        "android_client_info": {
+          "package_name": "com.pdp.fl_22_auth"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANo7_rfw7LmLBvGXBx2KK9FKEiX9i8xbE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
