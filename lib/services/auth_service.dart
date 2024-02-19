@@ -1,6 +1,8 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../pages/home_page.dart';
 
@@ -22,6 +24,7 @@ class AuthService{
      });
      return null;
    }
+   return null;
   }
 
   static Future<User?> loginUser(BuildContext context, {required String email, required String password})async{
@@ -46,6 +49,21 @@ class AuthService{
 
   static Future<void> deleteAccount()async{
     await _auth.currentUser?.delete();
+  }
+
+  static Future<User?> signInWithGoogle()async{
+    GoogleSignInAccount? googleSignInAccount = await GoogleSignIn().signIn();
+    if(googleSignInAccount != null){
+      GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+      OAuthCredential oAuthCredential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(oAuthCredential);
+      return userCredential.user;
+    }else{
+      return null;
+    }
   }
 
 }

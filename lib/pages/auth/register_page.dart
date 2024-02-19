@@ -1,56 +1,59 @@
-import 'package:fl_22_auth/pages/home_page.dart';
-import 'package:fl_22_auth/pages/register_page.dart';
 import 'package:fl_22_auth/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
 
+  TextEditingController fullNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Register Page"),
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+
+              TextField(
+                controller: fullNameController,
+                decoration: const InputDecoration(
+                    hintText: "User name"
+                ),
+              ),
+
               TextField(
                 controller: emailController,
                 decoration: const InputDecoration(
-                  hintText: "Email"
+                    hintText: "Email"
                 ),
               ),
+
               TextField(
                 controller: passwordController,
                 decoration: const InputDecoration(
                     hintText: "Password"
                 ),
               ),
-              MaterialButton(
-                onPressed: ()async{
-                  await AuthService.loginUser(context, email: emailController.text, password: passwordController.text);
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
-                },
-                color: Colors.blue,
-                child: const Text("Login"),
-              ),
 
               MaterialButton(
-                onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterPage()));
+                onPressed: ()async{
+                  await AuthService.registerUser(context, fullName: fullNameController.text.trim().toString(), email: emailController.text.trim().toString(), password: passwordController.text);
                 },
-                color: Colors.yellow,
-                child: const Text("Don't have an account? Create new account"),
+                color: Colors.blue,
+                child: const Text("Register"),
               )
             ],
           ),

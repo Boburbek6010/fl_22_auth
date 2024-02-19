@@ -1,10 +1,13 @@
-import 'package:fl_22_auth/pages/login_page.dart';
-import 'package:fl_22_auth/pages/register_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fl_22_auth/pages/auth/login_page.dart';
 import 'package:fl_22_auth/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
+import 'auth/register_page.dart';
+
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final User? user;
+  const HomePage({super.key, this.user});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -15,11 +18,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text(widget.user!.email.toString()),
         actions: [
           IconButton(
             onPressed: ()async{
               await AuthService.logOut();
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const LoginPage()));
               },
             icon: const Icon(Icons.logout),
           )
@@ -34,7 +37,6 @@ class _HomePageState extends State<HomePage> {
             ),),
             IconButton(onPressed: ()async{
               await AuthService.deleteAccount();
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const RegisterPage()));
             }, icon: const Icon(Icons.delete))
           ],
         ),
